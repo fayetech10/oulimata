@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
+import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
+import { getBaseUrl, pageMetadata, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
   description: `Book a free newborn care consultation with ${site.name} in ${site.city}. We reply within one business day.`,
-};
+  path: "/contact",
+});
 
 const details = [
   {
@@ -35,8 +37,15 @@ const details = [
 ];
 
 export default function ContactPage() {
+  const baseUrl = getBaseUrl();
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema(baseUrl, [
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <PageHeader
         eyebrow="Contact"
         title="Let's plan the support that's right for you"

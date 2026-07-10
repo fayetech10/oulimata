@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { getBaseUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = `https://${site.domain}`;
+  const base = getBaseUrl();
   const routes = ["", "/services", "/about", "/contact"];
+  const now = new Date();
   return routes.map((route) => ({
     url: `${base}${route}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.8,
   }));
