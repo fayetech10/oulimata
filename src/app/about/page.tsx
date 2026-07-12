@@ -33,7 +33,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About us"
         title="A calmer, kinder fourth trimester"
-        description={`${site.name} is a small newborn and postpartum care studio. We began just a couple of months ago with one belief: new families deserve steady, expert hands — and real rest.`}
+        description={`${site.name} is a small newborn and postpartum care studio, born from ${site.founder}'s own experience as a new mother — and one belief: new families deserve steady, expert hands, and real rest.`}
       />
 
       {/* Story */}
@@ -76,22 +76,43 @@ export default function AboutPage() {
           <Reveal delay={80}>
             <div className="prose-neutral">
               <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight text-ink">
-                Our story
+                My story
               </h2>
               <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink-soft">
                 <p>
-                  Bringing a baby home is one of life&apos;s most beautiful
-                  moments — and one of its most exhausting. In those first
-                  weeks, a little expert support can change everything.
+                  My name is {site.founder}, founder of {site.legalName}. My
+                  journey to becoming a Newborn Care Specialist and Postpartum
+                  Doula began with my own experience as a new mother.
                 </p>
                 <p>
-                  {site.name} was founded by {site.founder} to offer exactly
-                  that: warm, knowledgeable, hands-on care for newborns and the
-                  parents who love them. We&apos;re new, and we&apos;re proud of
-                  it — being small means every family gets our full attention.
+                  When my son was born over a decade ago, my mother came to
+                  live with me during those first precious weeks. Every night,
+                  I cared for my baby, and each morning around 6:00 a.m., I
+                  would bring him to my mother&apos;s room so I could get a few
+                  more hours of much-needed sleep.
+                </p>
+                <p className="font-display text-xl font-semibold italic text-plum-deep">
+                  That support was priceless.
                 </p>
                 <p>
-                  {site.promise}
+                  Looking back, I often think about how difficult those early
+                  weeks would have been without her help. Having someone I
+                  trusted to care for my baby allowed me to rest, recover, and
+                  be the best mother I could be.
+                </p>
+                <p>
+                  That experience stayed with me. It inspired me to become a
+                  certified Newborn Care Specialist and Postpartum Doula so I
+                  could provide that same sense of comfort, reassurance, and
+                  support to other families.
+                </p>
+                <p>
+                  At {site.legalName}, my goal is to be the helping hand that
+                  every new parent deserves. Whether I&apos;m caring for your
+                  newborn during the day or overnight, my mission is to give
+                  you the opportunity to rest, recover, and enjoy this special
+                  season with confidence, knowing your baby is in caring and
+                  capable hands.
                 </p>
               </div>
 

@@ -96,7 +96,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Phone / WhatsApp
+            Phone
           </label>
           <input
             id="phone"
@@ -134,6 +134,96 @@ export function ContactForm() {
           name="timing"
           type="text"
           placeholder="e.g. due in March, or baby is 3 weeks old"
+          className={fieldClass}
+        />
+      </div>
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="dateOfBirth" className={labelClass}>
+            Baby&apos;s date of birth
+          </label>
+          <input
+            id="dateOfBirth"
+            name="dateOfBirth"
+            type="date"
+            className={fieldClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="feedingPreference" className={labelClass}>
+            Feeding preference
+          </label>
+          <select
+            id="feedingPreference"
+            name="feedingPreference"
+            className={fieldClass}
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Choose an option…
+            </option>
+            <option value="Breastfeeding">Breastfeeding</option>
+            <option value="Formula">Formula</option>
+            <option value="Combination">Combination (breast & formula)</option>
+            <option value="Pumping / expressed milk">
+              Pumping / expressed milk
+            </option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <label htmlFor="address" className={labelClass}>
+          Address
+        </label>
+        <input
+          id="address"
+          name="address"
+          type="text"
+          autoComplete="street-address"
+          placeholder="Street, city & ZIP"
+          className={fieldClass}
+        />
+      </div>
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="parking" className={labelClass}>
+            Parking
+          </label>
+          <input
+            id="parking"
+            name="parking"
+            type="text"
+            placeholder="e.g. driveway, street parking, garage"
+            className={fieldClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="pets" className={labelClass}>
+            Pets
+          </label>
+          <input
+            id="pets"
+            name="pets"
+            type="text"
+            placeholder="e.g. one friendly dog — or none"
+            className={fieldClass}
+          />
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <label htmlFor="allergies" className={labelClass}>
+          Allergies
+        </label>
+        <input
+          id="allergies"
+          name="allergies"
+          type="text"
+          placeholder="Anything we should know about — or none"
           className={fieldClass}
         />
       </div>

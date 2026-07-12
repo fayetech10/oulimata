@@ -17,7 +17,7 @@ export const site = {
   tagline: "Postpartum & Newborn Care",
   motto:
     "Every baby deserves gentle care. Every parent deserves compassionate support.",
-  founder: "Oulimata",
+  founder: "Oulimata Toure",
   establishedYear: 2026,
 
   // ── Contact ────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ export const site = {
   // ── One-liners used across the site ────────────────────────────
   heroTitle: "Rest, recover, and feel supported.",
   heroSubtitle:
-    "Watch The Baby provides luxury overnight postpartum and newborn care across Maryland, DC and Virginia — expert hands for your baby, real rest for you.",
+    "Our Promise to Every Family At Watch The Baby LLC, we are committed to providing compassionate, evidence-based newborn care in a safe, nurturing environment. We believe every family deserves to feel supported, respected, and confident as they begin their parenting journey. Your baby’s well-being and your peace of mind are at the heart of everything we do..",
   promise:
     "We're a small, hands-on team. When you work with us, you work directly with the people caring for your family — never a call centre.",
   packagesNote:
