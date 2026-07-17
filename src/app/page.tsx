@@ -189,12 +189,12 @@ export default function HomePage() {
       {/* ── Founder / About teaser ───────────────────────────── */}
       <section className="container py-8">
         <div className="group surface-card overflow-hidden lg:grid lg:grid-cols-2">
-          <div className="relative min-h-[320px]">
+          <div className="relative min-h-[420px] sm:min-h-[480px] lg:min-h-[320px]">
             {site.images.founder ? (
               <PhotoSlot
                 src={site.images.founder}
                 alt={`${site.founder}, founder of ${site.name}`}
-                className="h-full min-h-[320px]"
+                className="h-full min-h-[420px] sm:min-h-[480px] lg:min-h-[320px]"
               />
             ) : (
               /* portrait placeholder — set site.images.founder to swap in a photo */

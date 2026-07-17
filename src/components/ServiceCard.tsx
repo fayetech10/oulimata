@@ -13,7 +13,7 @@ export function ServiceCard({ service }: { service: Service }) {
         <PhotoSlot
           src={service.image}
           alt={service.imageAlt ?? service.title}
-          className="mb-6 aspect-[3/2] w-full rounded-2xl"
+          className="-mx-7 -mt-7 mb-6 aspect-[4/3] w-[calc(100%+3.5rem)] max-w-none rounded-b-none rounded-t-4xl sm:mx-0 sm:mt-0 sm:aspect-[3/2] sm:w-full sm:rounded-2xl"
           sizes="(min-width: 768px) 33vw, 100vw"
         />
       )}

@@ -47,9 +47,18 @@ export default function ServicesPage() {
             <Reveal key={service.slug}>
               <article
                 id={service.slug}
-                className="surface-card grid gap-8 p-8 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:items-center"
+                className="surface-card grid gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:items-center"
               >
-                <div className={i % 2 === 1 ? "lg:order-2" : ""}>
+                {/* Mobile/tablet: big edge-to-edge photo at the top of the card */}
+                {service.image && (
+                  <PhotoSlot
+                    src={service.image}
+                    alt={service.imageAlt ?? service.title}
+                    className="-mx-6 -mt-6 -mb-2 aspect-[4/3] w-[calc(100%+3rem)] max-w-none rounded-b-none rounded-t-4xl sm:-mx-10 sm:-mt-10 sm:aspect-[3/2] sm:w-[calc(100%+5rem)] lg:hidden"
+                    sizes="100vw"
+                  />
+                )}
+                <div className={i % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
                   <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-plum-soft text-plum-deep">
                     <Icon name={service.icon as IconName} className="h-7 w-7" />
                   </span>
@@ -66,15 +75,16 @@ export default function ServicesPage() {
                 </div>
 
                 <div
-                  className={`rounded-4xl bg-plum-tint/70 p-7 ${
-                    i % 2 === 1 ? "lg:order-1" : ""
+                  className={`rounded-4xl bg-plum-tint/70 p-5 sm:p-7 ${
+                    i % 2 === 1 ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
+                  {/* Desktop: photo lives inside the "what's included" box */}
                   {service.image && (
                     <PhotoSlot
                       src={service.image}
                       alt={service.imageAlt ?? service.title}
-                      className="mb-7 aspect-[16/9] w-full rounded-3xl"
+                      className="mb-7 hidden aspect-[16/9] w-full rounded-3xl lg:block"
                       sizes="(min-width: 1024px) 50vw, 100vw"
                     />
                   )}
