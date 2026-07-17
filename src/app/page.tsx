@@ -47,7 +47,13 @@ export default function HomePage() {
               className="animate-fade-up mt-9 flex flex-wrap items-center gap-x-6 gap-y-3"
               style={{ animationDelay: "320ms" }}
             >
-              {["Background-checked", "CPR certified", "Fully insured"].map(
+              {[
+                "Background-checked",
+                "CPR certified",
+                "Fully insured",
+                "Certified Newborn Care Specialist",
+                "Certified Postpartum Doula",
+              ].map(
                 (item) => (
                   <li
                     key={item}

@@ -37,7 +37,7 @@ export const site = {
   // ── One-liners used across the site ────────────────────────────
   heroTitle: "Rest, recover, and feel supported.",
   heroSubtitle:
-    "Our Promise to Every Family At Watch The Baby LLC, we are committed to providing compassionate, evidence-based newborn care in a safe, nurturing environment. We believe every family deserves to feel supported, respected, and confident as they begin their parenting journey. Your baby’s well-being and your peace of mind are at the heart of everything we do..",
+    "Our Promise to Every Family. At Watch The Baby LLC, we are committed to providing compassionate, evidence-based newborn care in a safe, nurturing environment. We believe every family deserves to feel supported, respected, and confident as they begin their parenting journey. Your baby’s well-being and your peace of mind are at the heart of everything we do.",
   promise:
     "We're a small, hands-on team. When you work with us, you work directly with the people caring for your family — never a call centre.",
   packagesNote:
@@ -145,7 +145,7 @@ export const services: Service[] = [
       "In-home visits shaped around your recovery",
       "Newborn care while you rest and recharge",
       "Evidence-based answers, never judgement",
-      "Light meal prep and household support",
+     
     ],
     priceNote: "Per visit · bundled packages available",
     image: "/images/doula-support.jpg",

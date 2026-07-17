@@ -33,7 +33,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About us"
         title="A calmer, kinder fourth trimester"
-        description={`${site.name} is a small newborn and postpartum care studio, born from ${site.founder}'s own experience as a new mother — and one belief: new families deserve steady, expert hands, and real rest.`}
+        description={`${site.name} is a newborn and postpartum care studio, born from ${site.founder}'s own experience as a new mother — and one belief: new families deserve steady, expert hands, and real rest.`}
       />
 
       {/* Story */}
