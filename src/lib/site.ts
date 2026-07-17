@@ -35,9 +35,17 @@ export const site = {
   },
 
   // ── One-liners used across the site ────────────────────────────
+  /** Short summary used for meta descriptions & social cards (~160 chars). */
+  description:
+    "Luxury overnight & daytime newborn care, postpartum doula support and gentle sleep conditioning across Maryland, DC & Northern Virginia. Rest easy — book a free consultation.",
   heroTitle: "Rest, recover, and feel supported.",
   heroSubtitle:
-    "Our Promise to Every Family. At Watch The Baby LLC, we are committed to providing compassionate, evidence-based newborn care in a safe, nurturing environment. We believe every family deserves to feel supported, respected, and confident as they begin their parenting journey. Your baby’s well-being and your peace of mind are at the heart of everything we do.",
+    "Compassionate, evidence-based newborn care in your own home — expert, judgement-free hands for your baby, and real rest for you in those first precious weeks.",
+  promiseSection: {
+    eyebrow: "Our promise",
+    title: "Our Promise to Every Family",
+    text: "At Watch The Baby LLC, we are committed to providing compassionate, evidence-based newborn care in a safe, nurturing environment. We believe every family deserves to feel supported, respected, and confident as they begin their parenting journey. Your baby’s well-being and your peace of mind are at the heart of everything we do.",
+  },
   promise:
     "We're a small, hands-on team. When you work with us, you work directly with the people caring for your family — never a call centre.",
   packagesNote:

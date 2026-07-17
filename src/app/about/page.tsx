@@ -1,5 +1,6 @@
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/Button";
+import { FounderPlaceholder } from "@/components/FounderPlaceholder";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Icon, type IconName } from "@/components/Icons";
@@ -50,20 +51,7 @@ export default function AboutPage() {
                 />
               ) : (
                 <>
-                  <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-plum-soft via-plum-tint to-rose-soft p-8">
-                    <div className="flex min-h-[300px] items-center justify-center">
-                      <div className="relative">
-                        <div className="flex h-40 w-40 items-center justify-center rounded-full border border-white/70 bg-white/60 shadow-soft backdrop-blur">
-                          <span className="font-display text-5xl font-semibold text-plum-deep">
-                            {site.founder.charAt(0)}
-                          </span>
-                        </div>
-                        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-semibold text-ink shadow-soft">
-                          {site.founder}, Founder
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <FounderPlaceholder className="min-h-[320px] overflow-hidden rounded-4xl" />
                   <p className="mt-4 text-center text-sm text-ink-muted">
                     A warm photo of {site.founder} will live here — see
                     public/images/README.md.

@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
 import { JsonLd } from "@/components/JsonLd";
+import { SocialLinks } from "@/components/SocialLinks";
 import { site } from "@/lib/site";
 import { getBaseUrl, pageMetadata, breadcrumbSchema } from "@/lib/seo";
 
@@ -99,25 +100,8 @@ export default function ContactPage() {
               })}
             </ul>
 
-            <div className="mt-8 flex gap-2">
-              <a
-                href={site.social.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-ink-soft transition-colors hover:border-plum hover:text-plum-deep"
-              >
-                <Icon name="instagram" className="h-5 w-5" />
-              </a>
-              <a
-                href={site.social.facebook}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-ink-soft transition-colors hover:border-plum hover:text-plum-deep"
-              >
-                <Icon name="facebook" className="h-5 w-5" />
-              </a>
+            <div className="mt-8">
+              <SocialLinks />
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoImage } from "./Logo";
 import { Icon } from "./Icons";
+import { SocialLinks } from "./SocialLinks";
 import { nav, services, site } from "@/lib/site";
 
 export function Footer() {
@@ -18,25 +19,8 @@ export function Footer() {
               {site.serviceArea} — so families can rest, recover and feel
               supported.
             </p>
-            <div className="mt-5 flex gap-2">
-              <a
-                href={site.social.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink-soft transition-colors hover:border-plum hover:text-plum-deep"
-              >
-                <Icon name="instagram" className="h-5 w-5" />
-              </a>
-              <a
-                href={site.social.facebook}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink-soft transition-colors hover:border-plum hover:text-plum-deep"
-              >
-                <Icon name="facebook" className="h-5 w-5" />
-              </a>
+            <div className="mt-5">
+              <SocialLinks size="sm" />
             </div>
           </div>
 

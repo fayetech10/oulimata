@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { FounderPlaceholder } from "@/components/FounderPlaceholder";
 import { HeroArt } from "@/components/HeroArt";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -121,6 +122,25 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      {/* ── Our promise ──────────────────────────────────────── */}
+      <section className="container pt-16 sm:pt-20">
+        <Reveal>
+          <figure className="mx-auto max-w-3xl text-center">
+            <Eyebrow>{site.promiseSection.eyebrow}</Eyebrow>
+            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
+              {site.promiseSection.title}
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-ink-soft">
+              {site.promiseSection.text}
+            </p>
+            <div
+              className="mx-auto mt-8 h-px w-24 bg-gold/60"
+              aria-hidden="true"
+            />
+          </figure>
+        </Reveal>
+      </section>
+
       {/* ── Services ─────────────────────────────────────────── */}
       <section className="container py-20 sm:py-28">
         <Reveal>
@@ -178,18 +198,7 @@ export default function HomePage() {
               />
             ) : (
               /* portrait placeholder — set site.images.founder to swap in a photo */
-              <div className="flex h-full min-h-[320px] items-center justify-center bg-gradient-to-br from-plum-soft via-plum-tint to-rose-soft p-8">
-                <div className="relative">
-                  <div className="flex h-44 w-44 items-center justify-center rounded-full border border-white/70 bg-white/60 shadow-soft backdrop-blur">
-                    <span className="font-display text-6xl font-semibold text-plum-deep">
-                      {site.founder.charAt(0)}
-                    </span>
-                  </div>
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-semibold text-ink shadow-soft">
-                    {site.founder}, Founder
-                  </div>
-                </div>
-              </div>
+              <FounderPlaceholder className="h-full min-h-[320px]" />
             )}
           </div>
 

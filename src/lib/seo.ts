@@ -71,7 +71,7 @@ export function localBusinessSchema(baseUrl: string) {
     "@id": `${baseUrl}/#business`,
     name: site.legalName,
     alternateName: site.name,
-    description: site.heroSubtitle,
+    description: site.description,
     slogan: site.motto,
     url: baseUrl,
     email: site.email,
@@ -116,7 +116,7 @@ export function websiteSchema(baseUrl: string) {
     "@id": `${baseUrl}/#website`,
     url: baseUrl,
     name: site.name,
-    description: site.heroSubtitle,
+    description: site.description,
     inLanguage: "en",
     publisher: { "@id": `${baseUrl}/#business` },
   };

@@ -48,6 +48,7 @@ export function Reveal({
   return (
     <Tag
       ref={setNode}
+      data-reveal
       style={{ transitionDelay: `${delay}ms` }}
       className={`transition-all duration-[700ms] ease-out ${
         shown ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"

@@ -27,6 +27,8 @@ const CONTACT_RECIPIENT = "fayedev93@gmail.com";
 const FORM_ORIGIN = "https://ouliaservice.netlify.app";
 
 type ContactPayload = {
+  /** Honeypot field — humans never see it; bots fill it in. */
+  company?: string;
   name?: string;
   email?: string;
   phone?: string;
@@ -136,6 +138,12 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+
+  // Honeypot tripped — pretend everything went fine so bots don't adapt.
+  if (body.company?.trim()) {
+    console.log("[contact] Honeypot triggered — enquiry discarded.");
+    return NextResponse.json({ ok: true });
   }
 
   const name = body.name?.trim() ?? "";

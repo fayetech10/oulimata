@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     default: `${site.name} — ${site.tagline} · ${site.region}`,
     template: `%s · ${site.name}`,
   },
-  description: site.heroSubtitle,
+  description: site.description,
   applicationName: site.name,
   authors: [{ name: site.legalName }],
   creator: site.legalName,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: `${site.name} — ${site.tagline}`,
-    description: site.heroSubtitle,
+    description: site.description,
     url: "/",
     siteName: site.name,
     type: "website",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
-    description: site.heroSubtitle,
+    description: site.description,
   },
   robots: {
     index: true,
@@ -101,6 +101,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
       <body className="page-backdrop min-h-screen">
+        {/* Reveal animations depend on JS — keep content visible without it. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
         <JsonLd data={[localBusinessSchema(baseUrl), websiteSchema(baseUrl)]} />
         <a
           href="#main"

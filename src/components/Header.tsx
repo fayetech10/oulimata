@@ -20,11 +20,16 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll while the mobile menu is open.
+  // Lock body scroll while the mobile menu is open, and let Escape close it.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    if (open) window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
@@ -73,6 +78,7 @@ export function Header() {
           className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink transition-colors hover:bg-plum-tint md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
         </button>
@@ -80,7 +86,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-line/70 bg-cream md:hidden">
+        <div id="mobile-menu" className="border-t border-line/70 bg-cream md:hidden">
           <nav className="container flex flex-col gap-1 py-4">
             {nav.map((item) => {
               const active =
