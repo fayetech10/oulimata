@@ -7,6 +7,12 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "sencsu-frontend",
+      "runtimeExecutable": "C:\\Users\\hp\\Documents\\Gestion Pharmacie sen-csu\\frontend\\serve-dev.cmd",
+      "runtimeArgs": [],
+      "port": 4200
     }
   ]
 }

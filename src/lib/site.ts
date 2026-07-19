@@ -29,9 +29,9 @@ export const site = {
   hours: "Overnight care 7 nights a week · Consultations by appointment",
 
   social: {
-    instagram: "https://instagram.com/", // TODO: real Instagram profile URL
-    facebook: "https://facebook.com/", // TODO: real Facebook page URL
-    tiktok: "https://tiktok.com/", // TODO: real TikTok profile URL
+    instagram: "https://www.instagram.com/watchthebaby_?igsh=aGt4MnZqNnlnNTY5", // TODO: real Instagram profile URL
+    facebook: "https://facebook.com/watchthebaby", // TODO: real Facebook page URL
+    tiktok: "https://tiktok.com/@watchthebaby", // TODO: real TikTok profile URL
   },
 
   // ── One-liners used across the site ────────────────────────────
@@ -112,7 +112,7 @@ export const services: Service[] = [
     summary:
       "Luxury overnight care — feeds, changes and settling handled while you finally sleep.",
     description:
-      "Our overnight specialists care for your baby through the night: feeds, diaper changes and gentle soothing, with baby brought to you for breastfeeding or offered a prepared bottle. You rest and recover; we watch the baby.",
+      "Our overnight specialists care for your baby through the night: feeds, diaper changes, gentle soothing, baby brought to you for breastfeeding or offered a prepared bottle. You rest and recover; we watch the baby.",
     includes: [
       "Overnight shifts, typically 8–12 hours",
       "Feeds, diapering and safe-sleep routines",
