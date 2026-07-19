@@ -30,7 +30,12 @@ export function getBaseUrl(): string {
   const preview = process.env.VERCEL_URL;
   if (preview) return `https://${preview}`;
 
-  return "http://localhost:3000";
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
+  }
+
+  // Fallback sûr en production si la variable d'environnement n'est pas définie chez l'hébergeur
+  return "https://www.watchthebabyllc.com";
 }
 
 /** Consistent metadata for a page (title, description, canonical, social). */
