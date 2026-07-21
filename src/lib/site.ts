@@ -21,7 +21,7 @@ export const site = {
   establishedYear: 2026,
 
   // ── Contact ────────────────────────────────────────────────────
-  email: "watchthebaby42@gmail.com",
+  email: "info@watchthebabyllc.com",
   bookingNote: "DM or email to book",
   region: "Maryland · DC · Virginia",
   city: "the DMV", // used in sentences like “families in the DMV”

@@ -9,18 +9,19 @@ import {
 /**
  * Contact form handler.
  *
- * Preferred path — Gmail (nodemailer): when GMAIL_USER and
- * GMAIL_APP_PASSWORD are set (in .env.local locally, or in the host's
- * environment variables), each enquiry is emailed to CONTACT_RECIPIENT with
- * two downloadable attachments: a PDF and an Excel file of the submission.
+ * Preferred path — SMTP (nodemailer): when SMTP_USER and SMTP_PASSWORD are set
+ * (in .env.local locally, or in the host's environment variables), each enquiry
+ * is emailed to CONTACT_RECIPIENT with two downloadable attachments: a PDF and
+ * an Excel file of the submission. Defaults to Brevo's relay, which is what
+ * sends as info@watchthebabyllc.com — see .env.example.
  *
- * Fallback — FormSubmit (https://formsubmit.co): if the Gmail variables are
- * missing, the enquiry is forwarded as a plain table email (no attachments).
+ * Fallback — FormSubmit (https://formsubmit.co): if no SMTP credentials are
+ * present, the enquiry is forwarded as a plain table email (no attachments).
  * FormSubmit requires a one-time activation click from the recipient inbox.
  */
 
-// TODO: switch to watchthebaby42@gmail.com when going live.
-const CONTACT_RECIPIENT = "fayedev93@gmail.com";
+// Delivered to the business inbox; ImprovMX forwards it to the personal Gmail.
+const CONTACT_RECIPIENT = "info@watchthebabyllc.com";
 
 // FormSubmit requires an Origin header and ties the form's activation to it,
 // so we always send the production origin — even from local dev.
@@ -45,6 +46,44 @@ type ContactPayload = {
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
+type MailTransport = {
+  host: string;
+  port: number;
+  auth: { user: string; pass: string };
+  /** The From address — it has to be one the transport is allowed to send as. */
+  from: string;
+};
+
+/**
+ * Brevo relays mail for the custom domain, so it can send as info@. The old
+ * personal-Gmail credentials stay supported as a fallback — Gmail rewrites the
+ * From header to the account it authenticated, so that path sends as itself.
+ */
+function resolveTransport(): MailTransport | null {
+  const { SMTP_USER, SMTP_PASSWORD, GMAIL_USER, GMAIL_APP_PASSWORD } =
+    process.env;
+
+  if (SMTP_USER && SMTP_PASSWORD) {
+    return {
+      host: process.env.SMTP_HOST ?? "smtp-relay.brevo.com",
+      port: Number(process.env.SMTP_PORT ?? 587),
+      auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
+      from: CONTACT_RECIPIENT,
+    };
+  }
+
+  if (GMAIL_USER && GMAIL_APP_PASSWORD) {
+    return {
+      host: "smtp.gmail.com",
+      port: 587,
+      auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+      from: GMAIL_USER,
+    };
+  }
+
+  return null;
+}
+
 const escapeHtml = (v: string) =>
   v
     .replace(/&/g, "&amp;")
@@ -52,7 +91,8 @@ const escapeHtml = (v: string) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-async function sendViaGmail(
+async function sendViaSmtp(
+  transport: MailTransport,
   fields: EnquiryField[],
   name: string,
   replyTo: string,
@@ -78,15 +118,14 @@ async function sendViaGmail(
     .join("");
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
+    host: transport.host,
+    port: transport.port,
+    secure: transport.port === 465,
+    auth: transport.auth,
   });
 
   await transporter.sendMail({
-    from: `"Watch The Baby — Website" <${process.env.GMAIL_USER}>`,
+    from: `"Watch The Baby — Website" <${transport.from}>`,
     to: CONTACT_RECIPIENT,
     replyTo,
     subject: `New enquiry from ${name} — Watch The Baby`,
@@ -179,12 +218,11 @@ export async function POST(request: Request) {
     { label: "Message", value: message },
   ];
 
-  const gmailConfigured =
-    !!process.env.GMAIL_USER && !!process.env.GMAIL_APP_PASSWORD;
+  const transport = resolveTransport();
 
   try {
-    if (gmailConfigured) {
-      await sendViaGmail(fields, name, email);
+    if (transport) {
+      await sendViaSmtp(transport, fields, name, email);
       console.log(
         "[contact] Enquiry emailed with PDF/Excel attachments to",
         CONTACT_RECIPIENT,
@@ -194,7 +232,7 @@ export async function POST(request: Request) {
     } else {
       await sendViaFormSubmit(fields, name);
       console.log(
-        "[contact] Gmail not configured — enquiry forwarded via FormSubmit (no attachments) to",
+        "[contact] No SMTP credentials — enquiry forwarded via FormSubmit (no attachments) to",
         CONTACT_RECIPIENT,
         "—",
         name,
