@@ -76,6 +76,7 @@ export default function HomePage() {
                 src={site.images.hero}
                 alt="A caregiver gently soothing a sleeping newborn"
                 priority
+                quality={90}
                 className="aspect-[13/14] w-full rounded-4xl shadow-lift"
               />
             ) : (

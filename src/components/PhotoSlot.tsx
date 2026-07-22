@@ -16,6 +16,7 @@ export function PhotoSlot({
   className = "",
   label = "Photo coming soon",
   priority = false,
+  quality,
   sizes = "(min-width: 1024px) 50vw, 100vw",
 }: {
   src?: string | null;
@@ -23,6 +24,13 @@ export function PhotoSlot({
   className?: string;
   label?: string;
   priority?: boolean;
+  /**
+   * Falls back to next/image's default of 75. Worth raising for a source photo
+   * that is already tightly compressed, so the re-encode doesn't stack a second
+   * generation of artefacts on top. Any value used must also be declared in
+   * next.config.mjs → images.qualities, which Next 16 enforces.
+   */
+  quality?: number;
   sizes?: string;
 }) {
   if (src) {
