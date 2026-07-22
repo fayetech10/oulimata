@@ -15,8 +15,12 @@ export function PageHeader({
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-70"
         style={{
+          // Plum top-right, dusty rose top-left — the same arrangement as
+          // .page-backdrop, so the band reads as part of the page rather than
+          // a panel laid on top. These blooms were previously sage green and
+          // terracotta, left over from an earlier palette.
           background:
-            "radial-gradient(40rem 22rem at 80% -20%, rgba(97,122,102,0.12), transparent 60%), radial-gradient(36rem 22rem at 0% 0%, rgba(201,139,122,0.12), transparent 55%)",
+            "radial-gradient(40rem 22rem at 80% -20%, rgba(74, 38, 80, 0.12), transparent 60%), radial-gradient(36rem 22rem at 0% 0%, rgba(176, 94, 109, 0.12), transparent 55%)",
         }}
         aria-hidden="true"
       />

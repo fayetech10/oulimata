@@ -48,10 +48,10 @@ export default function HomePage() {
               className="animate-fade-up mt-9 flex flex-wrap items-center gap-x-6 gap-y-3"
               style={{ animationDelay: "320ms" }}
             >
+              {/* Qualifications only. Background checks, CPR and insurance are
+                  the credentials strip's job immediately below, and spelling
+                  them out twice within one screen read as noise. */}
               {[
-                "Background-checked",
-                "CPR certified",
-                "Fully insured",
                 "Certified Newborn Care Specialist",
                 "Certified Postpartum Doula",
               ].map(
