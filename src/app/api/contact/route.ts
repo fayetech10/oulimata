@@ -12,15 +12,15 @@ import {
  * Preferred path — SMTP (nodemailer): when SMTP_USER and SMTP_PASSWORD are set
  * (in .env.local locally, or in the host's environment variables), each enquiry
  * is emailed to CONTACT_RECIPIENT with two downloadable attachments: a PDF and
- * an Excel file of the submission. Defaults to Brevo's relay, which is what
- * sends as info@watchthebabyllc.com — see .env.example.
+ * an Excel file of the submission. Defaults to Zoho's relay — the same account
+ * that hosts the mailbox, so it can send as info@ — see .env.example.
  *
  * Fallback — FormSubmit (https://formsubmit.co): if no SMTP credentials are
  * present, the enquiry is forwarded as a plain table email (no attachments).
  * FormSubmit requires a one-time activation click from the recipient inbox.
  */
 
-// Delivered to the business inbox; ImprovMX forwards it to the personal Gmail.
+// The Zoho mailbox itself — read in Outlook over IMAP, and the SMTP sender too.
 const CONTACT_RECIPIENT = "info@watchthebabyllc.com";
 
 // FormSubmit requires an Origin header and ties the form's activation to it,
@@ -67,9 +67,10 @@ type MailTransport = {
 };
 
 /**
- * Brevo relays mail for the custom domain, so it can send as info@. The old
- * personal-Gmail credentials stay supported as a fallback — Gmail rewrites the
- * From header to the account it authenticated, so that path sends as itself.
+ * Zoho hosts the mailbox and relays its outgoing mail, so it can send as the
+ * address it authenticated — info@. The old personal-Gmail credentials stay
+ * supported as a fallback, but Gmail rewrites the From header to the account
+ * it authenticated, so that path sends as itself.
  */
 function resolveTransport(): MailTransport | null {
   const { SMTP_USER, SMTP_PASSWORD, GMAIL_USER, GMAIL_APP_PASSWORD } =
@@ -77,7 +78,7 @@ function resolveTransport(): MailTransport | null {
 
   if (SMTP_USER && SMTP_PASSWORD) {
     return {
-      host: process.env.SMTP_HOST ?? "smtp-relay.brevo.com",
+      host: process.env.SMTP_HOST ?? "smtp.zoho.com",
       port: Number(process.env.SMTP_PORT ?? 587),
       auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
       from: CONTACT_RECIPIENT,
