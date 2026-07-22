@@ -34,7 +34,7 @@ type ContactPayload = {
   email?: string;
   phone?: string;
   service?: string;
-  timing?: string;
+  motherDateOfBirth?: string;
   dateOfBirth?: string;
   feedingPreference?: string;
   address?: string;
@@ -45,6 +45,18 @@ type ContactPayload = {
 };
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+/**
+ * <input type="date"> always submits ISO (YYYY-MM-DD) whatever the browser
+ * displays, but enquiries are read in the US — so render month-first as
+ * MM.DD.YYYY. Kept as string surgery rather than `new Date()`, which would
+ * shift the day for anyone west of UTC.
+ */
+const usDate = (v?: string) => {
+  const raw = v?.trim() ?? "";
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw);
+  return iso ? `${iso[2]}.${iso[3]}.${iso[1]}` : raw;
+};
 
 type MailTransport = {
   host: string;
@@ -208,8 +220,8 @@ export async function POST(request: Request) {
     { label: "Email", value: email },
     { label: "Phone", value: body.phone?.trim() ?? "" },
     { label: "Service", value: body.service ?? "" },
-    { label: "Due date or baby's age", value: body.timing?.trim() ?? "" },
-    { label: "Baby's date of birth", value: body.dateOfBirth ?? "" },
+    { label: "Mother's date of birth", value: usDate(body.motherDateOfBirth) },
+    { label: "Baby's date of birth", value: usDate(body.dateOfBirth) },
     { label: "Feeding preference", value: body.feedingPreference ?? "" },
     { label: "Address", value: body.address?.trim() ?? "" },
     { label: "Parking", value: body.parking?.trim() ?? "" },

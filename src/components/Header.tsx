@@ -41,7 +41,7 @@ export function Header() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="container flex h-[72px] items-center justify-between">
+      <div className="container flex h-[88px] items-center justify-between">
         <Logo onNavigate={() => setOpen(false)} />
 
         <nav className="hidden items-center gap-1 md:flex">

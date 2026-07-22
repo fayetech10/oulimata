@@ -215,20 +215,18 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-5">
-        <label htmlFor="timing" className={labelClass}>
-          Due date or baby&apos;s age
-        </label>
-        <input
-          id="timing"
-          name="timing"
-          type="text"
-          placeholder="e.g. due in March, or baby is 3 weeks old"
-          className={fieldClass}
-        />
-      </div>
-
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="motherDateOfBirth" className={labelClass}>
+            Mother&apos;s date of birth
+          </label>
+          <input
+            id="motherDateOfBirth"
+            name="motherDateOfBirth"
+            type="date"
+            className={fieldClass}
+          />
+        </div>
         <div>
           <label htmlFor="dateOfBirth" className={labelClass}>
             Baby&apos;s date of birth
@@ -240,28 +238,29 @@ export function ContactForm() {
             className={fieldClass}
           />
         </div>
-        <div>
-          <label htmlFor="feedingPreference" className={labelClass}>
-            Feeding preference
-          </label>
-          <select
-            id="feedingPreference"
-            name="feedingPreference"
-            className={fieldClass}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Choose an option…
-            </option>
-            <option value="Breastfeeding">Breastfeeding</option>
-            <option value="Formula">Formula</option>
-            <option value="Combination">Combination (breast & formula)</option>
-            <option value="Pumping / expressed milk">
-              Pumping / expressed milk
-            </option>
-            <option value="Not sure yet">Not sure yet</option>
-          </select>
-        </div>
+      </div>
+
+      <div className="mt-5">
+        <label htmlFor="feedingPreference" className={labelClass}>
+          Feeding preference
+        </label>
+        <select
+          id="feedingPreference"
+          name="feedingPreference"
+          className={fieldClass}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Choose an option…
+          </option>
+          <option value="Breastfeeding">Breastfeeding</option>
+          <option value="Formula">Formula</option>
+          <option value="Combination">Combination (breast & formula)</option>
+          <option value="Pumping / expressed milk">
+            Pumping / expressed milk
+          </option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
       </div>
 
       <div className="mt-5">

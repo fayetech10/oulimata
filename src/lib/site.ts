@@ -51,13 +51,6 @@ export const site = {
   packagesNote:
     "Ask about our comprehensive Maternity Care Packages — overnight care, feeding and sleep support, bundled at a gentler rate.",
 
-  // ── Referral programme ─────────────────────────────────────────
-  referral: {
-    eyebrow: "Give the gift of rest",
-    bonus: "$50",
-    text: "Refer a family and receive a $50 referral bonus when they book with us.",
-  },
-
   // ── Photos ─────────────────────────────────────────────────────
   // Drop real photos into public/images/ then set the paths here,
   // e.g. hero: "/images/hero.jpg". While a value is null the site

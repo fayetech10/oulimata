@@ -285,34 +285,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Referral programme ───────────────────────────────── */}
-      <section className="container pt-20 sm:pt-24">
-        <Reveal className="surface-card relative overflow-hidden p-8 sm:p-10">
-          <div
-            className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-rose-soft/70"
-            aria-hidden="true"
-          />
-          <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-5">
-              <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-rose-soft text-rose">
-                <Icon name="gift" className="h-7 w-7" />
-              </span>
-              <div>
-                <h2 className="font-display text-2xl font-semibold text-ink">
-                  {site.referral.eyebrow}
-                </h2>
-                <p className="mt-2 max-w-xl leading-relaxed text-ink-soft">
-                  {site.referral.text}
-                </p>
-              </div>
-            </div>
-            <Button href="/contact" variant="secondary" withArrow>
-              Refer a family
-            </Button>
-          </div>
-        </Reveal>
-      </section>
-
       {/* ── CTA band ─────────────────────────────────────────── */}
       <section className="container py-20 sm:py-28">
         <Reveal className="relative overflow-hidden rounded-4xl bg-plum px-8 py-14 text-center shadow-lift sm:px-16 sm:py-20">
