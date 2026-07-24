@@ -34,8 +34,10 @@ export function getBaseUrl(): string {
     return "http://localhost:3000";
   }
 
-  // Fallback sûr en production si la variable d'environnement n'est pas définie chez l'hébergeur
-  return "https://www.watchthebabyllc.com";
+  // Fallback sûr en production si la variable d'environnement n'est pas définie chez l'hébergeur.
+  // Sans "www" : Netlify sert le site sur l'apex et redirige www → apex en 301.
+  // Un canonical vers www renverrait Google sur une redirection à chaque URL.
+  return "https://watchthebabyllc.com";
 }
 
 /** Consistent metadata for a page (title, description, canonical, social). */
