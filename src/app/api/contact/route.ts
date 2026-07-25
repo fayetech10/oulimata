@@ -20,8 +20,18 @@ import {
  * FormSubmit requires a one-time activation click from the recipient inbox.
  */
 
-// The Zoho mailbox itself — read in Outlook over IMAP, and the SMTP sender too.
+// The Zoho mailbox — read in Outlook over IMAP. It is the destination of every
+// enquiry (the "To"), and stays the one and only address you actually read.
 const CONTACT_RECIPIENT = "info@watchthebabyllc.com";
+
+// Enquiries are sent FROM this address rather than info@ itself. Outlook hides
+// mail that arrives "from yourself to yourself", so info@ → info@ never shows in
+// the inbox. This must exist as an ALIAS of the info@ mailbox in Zoho
+// (admin.zoho.com → Users → info@ → Email Aliases) — it is not a new mailbox,
+// just a sender label, and everything still lands in info@. Until the alias
+// exists Zoho rejects it (553) and sendViaSmtp falls back to info@, so no
+// enquiry is ever lost. Override with the SMTP_FROM env var for a different name.
+const ENQUIRY_SENDER = process.env.SMTP_FROM ?? "contact@watchthebabyllc.com";
 
 // FormSubmit requires an Origin header and ties the form's activation to it,
 // so we always send the production origin — even from local dev.
@@ -81,7 +91,7 @@ function resolveTransport(): MailTransport | null {
       host: process.env.SMTP_HOST ?? "smtp.zoho.com",
       port: Number(process.env.SMTP_PORT ?? 587),
       auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
-      from: CONTACT_RECIPIENT,
+      from: ENQUIRY_SENDER,
     };
   }
 
@@ -103,6 +113,20 @@ const escapeHtml = (v: string) =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+
+/**
+ * A relay refuses to send "as" an address it doesn't own — Zoho answers 553.
+ * Used to detect that the enquiry-sender alias isn't set up in Zoho yet.
+ */
+function isRelayRejection(e: unknown): boolean {
+  const err = (e ?? {}) as { responseCode?: number; message?: string };
+  return (
+    err.responseCode === 553 ||
+    /not allowed to relay|relaying disallowed|sender address rejected/i.test(
+      String(err.message ?? ""),
+    )
+  );
+}
 
 async function sendViaSmtp(
   transport: MailTransport,
@@ -167,14 +191,37 @@ async function sendViaSmtp(
     auth: transport.auth,
   });
 
-  await transporter.sendMail({
-    from: `"Watch The Baby — Website" <${transport.from}>`,
+  // Show the visitor's name as the sender and put their email in Reply-To, so
+  // hitting "Reply" in the inbox writes straight back to them — even though the
+  // sender address itself must be one of ours (no relay lets you send *as*
+  // someone else's address).
+  const from = { name: `${name} (via website)`, address: transport.from };
+  const mail = {
     to: CONTACT_RECIPIENT,
     replyTo,
     subject: `New enquiry from ${name} — Watch The Baby`,
     html: `<h2 style="color:#59335c">New enquiry — Watch The Baby</h2><table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows}</table>${attachmentNote}`,
     attachments,
-  });
+  };
+
+  try {
+    await transporter.sendMail({ ...mail, from });
+  } catch (err) {
+    // The sender alias may not exist in Zoho yet (553 relay rejection). Don't
+    // lose the enquiry — resend from the authenticated mailbox. It still lands,
+    // just self-addressed, exactly as before the alias was set up.
+    if (isRelayRejection(err) && from.address !== CONTACT_RECIPIENT) {
+      console.warn(
+        `[contact] Sender "${from.address}" was rejected — is it an alias in Zoho? Resending from ${CONTACT_RECIPIENT}.`,
+      );
+      await transporter.sendMail({
+        ...mail,
+        from: { name: from.name, address: CONTACT_RECIPIENT },
+      });
+    } else {
+      throw err;
+    }
+  }
 }
 
 async function sendViaFormSubmit(fields: EnquiryField[], name: string) {

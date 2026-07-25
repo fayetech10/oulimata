@@ -82,6 +82,7 @@ export function localBusinessSchema(baseUrl: string) {
     slogan: site.motto,
     url: baseUrl,
     email: site.email,
+    telephone: site.phoneHref.replace("tel:", ""),
     image: `${baseUrl}/opengraph-image`,
     logo: `${baseUrl}/images/logo.png`,
     priceRange: "$$$",

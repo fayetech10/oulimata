@@ -22,6 +22,10 @@ export const site = {
 
   // ── Contact ────────────────────────────────────────────────────
   email: "info@watchthebabyllc.com",
+  phone: "(301) 467-0478",
+  // Machine-readable click-to-call (E.164). Also feeds the schema.org
+  // telephone in seo.ts — keep it in sync with `phone` above.
+  phoneHref: "tel:+13014670478",
   bookingNote: "DM or email to book",
   region: "Maryland · DC · Virginia",
   city: "the DMV", // used in sentences like “families in the DMV”

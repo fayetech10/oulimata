@@ -20,6 +20,12 @@ const details = [
     href: `mailto:${site.email}`,
   },
   {
+    icon: "phone" as const,
+    label: "Phone",
+    value: site.phone,
+    href: site.phoneHref,
+  },
+  {
     icon: "instagram" as const,
     label: "Instagram",
     value: "DM us to book",

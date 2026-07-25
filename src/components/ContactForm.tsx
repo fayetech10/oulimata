@@ -343,6 +343,36 @@ export function ContactForm() {
             {error}
           </p>
         )}
+        {/* A blocked submit must never be silent: when required fields are
+            missing, say so plainly instead of only nudging the field inline. */}
+        {status !== "error" &&
+          attempted &&
+          Object.keys(fieldErrors).length > 0 && (
+            <p
+              role="alert"
+              className="mt-5 rounded-2xl border border-rose/40 bg-rose-tint px-4 py-3 text-sm text-ink"
+            >
+              Please add{" "}
+              {(["name", "email", "message"] as const)
+                .filter((k) => fieldErrors[k])
+                .map(
+                  (k) =>
+                    ({
+                      name: "your name",
+                      email: "your email",
+                      message: "a short message",
+                    })[k],
+                )
+                .reduce(
+                  (acc, item, i, arr) =>
+                    acc +
+                    (i === 0 ? "" : i === arr.length - 1 ? " and " : ", ") +
+                    item,
+                    "",
+                )}{" "}
+              so we can send your enquiry.
+            </p>
+          )}
       </div>
 
       <button
