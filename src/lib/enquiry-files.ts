@@ -13,6 +13,33 @@ const INK = rgb(0.16, 0.13, 0.18);
 const MUTED = rgb(0.45, 0.42, 0.48);
 const LINE = rgb(0.88, 0.85, 0.89);
 
+/**
+ * pdf-lib's standard fonts (Helvetica) only speak WinAnsi/CP1252, and drawText
+ * THROWS on any character outside it — emoji, curly quotes, non-Latin scripts.
+ * A single "👶" or "❤️" in a visitor's message would otherwise crash the whole
+ * PDF build and, with it, the enquiry email. So we normalise the common
+ * typographic characters to ASCII and fold anything else down to "?". The email
+ * body and the Excel copy keep the original text in full — only the PDF, bound
+ * by its font, is reduced to what it can actually draw.
+ */
+function toPdfSafe(text: string): string {
+  const normalised = text
+    .replace(/[‘’‚′]/g, "'") // ' ' ‚ ′ -> '
+    .replace(/[“”„″]/g, '"') // " " „ ″ -> "
+    .replace(/[–—]/g, "-") // – — -> -
+    .replace(/…/g, "...") // … -> ...
+    .replace(/[•·]/g, "-"); // • · -> -
+
+  // Keep ASCII (0x00–0x7F) and Latin-1 printable (0xA0–0xFF) — both WinAnsi-safe.
+  // Everything still outside that range (emoji, CJK, Arabic, box-drawing…) -> "?".
+  let out = "";
+  for (const ch of normalised) {
+    const cp = ch.codePointAt(0) ?? 0;
+    out += cp <= 0x7f || (cp >= 0xa0 && cp <= 0xff) ? ch : "?";
+  }
+  return out;
+}
+
 function wrapText(
   text: string,
   font: { widthOfTextAtSize: (t: string, s: number) => number },
@@ -96,11 +123,11 @@ export async function buildEnquiryPdf(
   y -= 24;
 
   for (const { label, value } of fields) {
-    const valueLines = wrapText(value || "—", regular, 11, valueWidth);
+    const valueLines = wrapText(toPdfSafe(value || "—"), regular, 11, valueWidth);
     const rowHeight = Math.max(valueLines.length, 1) * 15 + 12;
     ensureRoom(rowHeight);
 
-    page.drawText(label, {
+    page.drawText(toPdfSafe(label), {
       x: margin,
       y,
       size: 11,

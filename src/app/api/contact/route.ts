@@ -111,10 +111,6 @@ async function sendViaSmtp(
   replyTo: string,
 ) {
   const submittedAt = new Date();
-  const [pdf, xlsx] = await Promise.all([
-    buildEnquiryPdf(fields, submittedAt),
-    buildEnquiryXlsx(fields, submittedAt),
-  ]);
 
   const slug = name
     .toLowerCase()
@@ -123,12 +119,46 @@ async function sendViaSmtp(
   const date = submittedAt.toISOString().slice(0, 10);
   const baseFilename = `enquiry-${slug || "contact"}-${date}`;
 
+  // The PDF and Excel copies are a convenience — the full enquiry is always in
+  // the email body below. So build them defensively: if either one fails, log
+  // it and send the email anyway rather than lose the enquiry entirely.
+  const attachments: { filename: string; content: Buffer; contentType: string }[] =
+    [];
+  try {
+    attachments.push({
+      filename: `${baseFilename}.pdf`,
+      content: await buildEnquiryPdf(fields, submittedAt),
+      contentType: "application/pdf",
+    });
+  } catch (err) {
+    console.error("[contact] PDF build failed — sending enquiry without it:", err);
+  }
+  try {
+    attachments.push({
+      filename: `${baseFilename}.xlsx`,
+      content: await buildEnquiryXlsx(fields, submittedAt),
+      contentType:
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+  } catch (err) {
+    console.error(
+      "[contact] Excel build failed — sending enquiry without it:",
+      err,
+    );
+  }
+
   const rows = fields
     .map(
       ({ label, value }) =>
         `<tr><td style="padding:6px 12px 6px 0;font-weight:bold;vertical-align:top;white-space:nowrap">${escapeHtml(label)}</td><td style="padding:6px 0;vertical-align:top">${escapeHtml(value || "—").replace(/\n/g, "<br>")}</td></tr>`,
     )
     .join("");
+
+  const attachmentNote = attachments.length
+    ? `<p style="color:#777;font-size:12px">The same information is attached as ${attachments
+        .map((a) => (a.filename.endsWith(".pdf") ? "PDF" : "Excel"))
+        .join(" and ")}.</p>`
+    : "";
 
   const transporter = nodemailer.createTransport({
     host: transport.host,
@@ -142,20 +172,8 @@ async function sendViaSmtp(
     to: CONTACT_RECIPIENT,
     replyTo,
     subject: `New enquiry from ${name} — Watch The Baby`,
-    html: `<h2 style="color:#59335c">New enquiry — Watch The Baby</h2><table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows}</table><p style="color:#777;font-size:12px">The same information is attached as PDF and Excel.</p>`,
-    attachments: [
-      {
-        filename: `${baseFilename}.pdf`,
-        content: pdf,
-        contentType: "application/pdf",
-      },
-      {
-        filename: `${baseFilename}.xlsx`,
-        content: xlsx,
-        contentType:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      },
-    ],
+    html: `<h2 style="color:#59335c">New enquiry — Watch The Baby</h2><table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows}</table>${attachmentNote}`,
+    attachments,
   });
 }
 
