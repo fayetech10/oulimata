@@ -3,10 +3,6 @@ import { site } from "@/lib/site";
 
 const items: { name: IconName; label: string; href: string }[] = [
   { name: "instagram", label: "Instagram", href: site.social.instagram },
-  { name: "facebook", label: "Facebook", href: site.social.facebook },
-  { name: "tiktok", label: "TikTok", href: site.social.tiktok },
-  { name: "mail", label: "Email us", href: `mailto:${site.email}` },
-  { name: "phone", label: "Call us", href: site.phoneHref },
 ];
 
 /**

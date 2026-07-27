@@ -3,12 +3,11 @@ import { site } from "@/lib/site";
 
 const links: { name: IconName; label: string; href: string }[] = [
   { name: "instagram", label: "Instagram", href: site.social.instagram },
-  { name: "facebook", label: "Facebook", href: site.social.facebook },
 ];
 
 /**
- * The round Instagram/Facebook buttons used in the footer and on the
- * contact page. `size` tweaks the touch-target diameter (both ≥ 40px).
+ * The round Instagram button used in the footer and on the contact page.
+ * `size` tweaks the touch-target diameter (≥ 40px).
  */
 export function SocialLinks({ size = "md" }: { size?: "sm" | "md" }) {
   const dim = size === "sm" ? "h-10 w-10" : "h-11 w-11";
