@@ -5,7 +5,7 @@ import { Icon } from "./Icons";
 import { services } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
-type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
+type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
 
 const fieldClass =
   "w-full rounded-2xl border border-line bg-cream/60 px-4 py-3 text-ink placeholder:text-ink-muted transition-colors focus:border-plum focus:bg-surface focus:outline-none focus:ring-2 focus:ring-plum/30 aria-[invalid=true]:border-rose aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-rose/30";
@@ -13,13 +13,16 @@ const labelClass = "mb-1.5 block text-sm font-semibold text-ink";
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-function validate(data: Record<string, string>): FieldErrors {
+function validate(data: Record<string, string>, smsConsent: boolean): FieldErrors {
   const errors: FieldErrors = {};
   if (!data.name?.trim()) errors.name = "Please tell us your name.";
   if (!data.email?.trim()) {
     errors.email = "Please add your email so we can reply.";
   } else if (!isEmail(data.email.trim())) {
     errors.email = "That email doesn't look right — please double-check it.";
+  }
+  if (smsConsent && !/^\+?\d[\d\s\-().]{6,}$/.test(data.phone?.trim() ?? "")) {
+    errors.phone = "Please add your mobile phone number to receive texts.";
   }
   if (!data.message?.trim())
     errors.message = "Please tell us a little about what you need.";
@@ -40,6 +43,7 @@ export function ContactForm() {
   const [error, setError] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
   const successRef = useRef<HTMLDivElement>(null);
 
   // Move screen-reader & keyboard focus to the confirmation panel.
@@ -52,7 +56,7 @@ export function ContactForm() {
     const data = Object.fromEntries(
       new FormData(form).entries(),
     ) as Record<string, string>;
-    setFieldErrors(validate(data));
+    setFieldErrors(validate(data, smsConsent));
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -63,10 +67,10 @@ export function ContactForm() {
     ) as Record<string, string>;
 
     setAttempted(true);
-    const errors = validate(data);
+    const errors = validate(data, smsConsent);
     setFieldErrors(errors);
     if (Object.keys(errors).length > 0) {
-      const first = (["name", "email", "message"] as const).find(
+      const first = (["name", "email", "phone", "message"] as const).find(
         (k) => errors[k],
       );
       const el = first && form.elements.namedItem(first);
@@ -81,7 +85,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, sms_consent: smsConsent }),
       });
       if (!res.ok) {
         const body = (await res.json().catch(() => null)) as
@@ -186,7 +190,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Phone
+            Mobile phone {smsConsent && <span className="text-rose">*</span>}
           </label>
           <input
             id="phone"
@@ -195,7 +199,10 @@ export function ContactForm() {
             autoComplete="tel"
             placeholder="+1 (301) …"
             className={fieldClass}
+            aria-invalid={fieldErrors.phone ? true : undefined}
+            aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
           />
+          <FieldError id="phone-error" message={fieldErrors.phone} />
         </div>
         <div>
           <label htmlFor="service" className={labelClass}>
@@ -255,7 +262,7 @@ export function ContactForm() {
           </option>
           <option value="Breastfeeding">Breastfeeding</option>
           <option value="Formula">Formula</option>
-          <option value="Combination">Combination (breast & formula)</option>
+          <option value="Combination">Combination (breast &amp; formula)</option>
           <option value="Pumping / expressed milk">
             Pumping / expressed milk
           </option>
@@ -272,7 +279,7 @@ export function ContactForm() {
           name="address"
           type="text"
           autoComplete="street-address"
-          placeholder="Street, city & ZIP"
+          placeholder="Street, city &amp; ZIP"
           className={fieldClass}
         />
       </div>
@@ -353,13 +360,14 @@ export function ContactForm() {
               className="mt-5 rounded-2xl border border-rose/40 bg-rose-tint px-4 py-3 text-sm text-ink"
             >
               Please add{" "}
-              {(["name", "email", "message"] as const)
+              {(["name", "email", "phone", "message"] as const)
                 .filter((k) => fieldErrors[k])
                 .map(
                   (k) =>
                     ({
                       name: "your name",
                       email: "your email",
+                      phone: "your mobile phone number",
                       message: "a short message",
                     })[k],
                 )
@@ -373,6 +381,32 @@ export function ContactForm() {
               so we can send your enquiry.
             </p>
           )}
+      </div>
+
+      {/* SMS Consent — A2P 10DLC compliance */}
+      <div className="mt-6 flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="sms_consent"
+          name="sms_consent"
+          checked={smsConsent}
+          onChange={(e) => setSmsConsent(e.target.checked)}
+          className="mt-1 h-4 w-4 shrink-0 rounded border-line accent-plum"
+        />
+        <label htmlFor="sms_consent" className="text-xs leading-relaxed text-ink-soft">
+          I agree to receive text messages from Watch The Baby LLC at the mobile
+          number provided above, including responses to my inquiry, consultation
+          scheduling and reminders, and service updates. Message frequency varies.
+          Message and data rates may apply. Reply STOP to opt out at any time or
+          HELP for help. Consent is not a condition of purchase. View our{" "}
+          <a href="/privacy-policy" className="text-plum-deep underline underline-offset-2 hover:text-plum">
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a href="/terms" className="text-plum-deep underline underline-offset-2 hover:text-plum">
+            Terms of Service
+          </a>.
+        </label>
       </div>
 
       <button
@@ -417,8 +451,11 @@ export function ContactForm() {
       </button>
 
       <p className="mt-4 text-xs leading-relaxed text-ink-muted">
-        By sending this message you agree to be contacted about your enquiry.
-        We&apos;ll never share your details.
+        By submitting this form you agree to be contacted by email or phone about
+        your enquiry. We will never sell your information. See our{" "}
+        <a href="/privacy-policy" className="text-plum-deep underline underline-offset-2 hover:text-plum">
+          Privacy Policy
+        </a>.
       </p>
     </form>
   );

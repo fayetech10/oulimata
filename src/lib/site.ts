@@ -71,7 +71,7 @@ export const site = {
 // ── Trust badges (the reassurance strip) ─────────────────────────
 export const credentials = [
   {
-    icon: "shield",
+    icon: "badge-check",
     title: "Background-checked",
     text: "Every caregiver is vetted and reference-checked before joining.",
   },
@@ -81,7 +81,7 @@ export const credentials = [
     text: "Infant CPR and first-aid trained, kept current every year.",
   },
   {
-    icon: "leaf",
+    icon: "certificate",
     title: "Fully insured",
     text: "Liability insurance and clear agreements on every booking.",
   },
@@ -280,12 +280,12 @@ export const values = [
     text: "Vetted, trained caregivers and safe-sleep practices, every single visit.",
   },
   {
-    icon: "sparkle",
+    icon: "award",
     title: "Real expertise",
     text: "Practical, evidence-based support drawn from years of newborn experience.",
   },
   {
-    icon: "leaf",
+    icon: "home-heart",
     title: "For every family",
     text: "We support all families — every structure, every feeding choice, every story.",
   },

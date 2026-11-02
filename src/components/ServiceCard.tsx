@@ -17,7 +17,7 @@ export function ServiceCard({ service }: { service: Service }) {
           sizes="(min-width: 768px) 33vw, 100vw"
         />
       )}
-      <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-plum-soft text-plum-deep transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-plum group-hover:text-white motion-reduce:transition-none">
+      <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-plum/10 bg-plum-soft/80 text-plum-deep transition-all duration-300 group-hover:scale-105 group-hover:border-transparent group-hover:bg-plum group-hover:text-gold-soft group-hover:shadow-soft motion-reduce:transition-none">
         <Icon name={service.icon as IconName} className="h-7 w-7" />
       </span>
 

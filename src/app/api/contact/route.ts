@@ -52,6 +52,8 @@ type ContactPayload = {
   pets?: string;
   allergies?: string;
   message?: string;
+  /** A2P 10DLC — SMS opt-in consent */
+  sms_consent?: boolean;
 };
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -281,10 +283,21 @@ export async function POST(request: Request) {
     );
   }
 
+  const phone = body.phone?.trim() ?? "";
+  const smsConsent = Boolean(body.sms_consent);
+
+  if (smsConsent && !phone) {
+    return NextResponse.json(
+      { error: "A valid mobile phone number is required when opting in to SMS updates." },
+      { status: 422 },
+    );
+  }
+
   const fields: EnquiryField[] = [
     { label: "Name", value: name },
     { label: "Email", value: email },
-    { label: "Phone", value: body.phone?.trim() ?? "" },
+    { label: "Mobile phone", value: phone },
+    { label: "SMS consent", value: smsConsent ? "Yes" : "No" },
     { label: "Service", value: body.service ?? "" },
     { label: "Mother's date of birth", value: usDate(body.motherDateOfBirth) },
     { label: "Baby's date of birth", value: usDate(body.dateOfBirth) },
@@ -295,6 +308,27 @@ export async function POST(request: Request) {
     { label: "Allergies", value: body.allergies?.trim() ?? "" },
     { label: "Message", value: message },
   ];
+
+  // A2P 10DLC compliance: store opt-in audit record if consent was given
+  if (smsConsent && phone) {
+    const clientIp =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+    const pageUrl =
+      request.headers.get("referer") ??
+      "https://www.watchthebabyllc.com/contact";
+    console.log(
+      "[sms-opt-in-proof]",
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        phone,
+        sms_consent: true,
+        pageUrl,
+        ip: clientIp,
+      }),
+    );
+  }
 
   const transport = resolveTransport();
 

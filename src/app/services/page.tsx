@@ -59,7 +59,7 @@ export default function ServicesPage() {
                   />
                 )}
                 <div className={i % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-plum-soft text-plum-deep">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-plum/10 bg-plum-soft/80 text-plum-deep shadow-soft">
                     <Icon name={service.icon as IconName} className="h-7 w-7" />
                   </span>
                   <h2 className="mt-5 font-display text-2xl font-semibold text-ink sm:text-3xl">
@@ -68,8 +68,8 @@ export default function ServicesPage() {
                   <p className="mt-4 text-lg leading-relaxed text-ink-soft">
                     {service.description}
                   </p>
-                  <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-rose-tint px-4 py-1.5 text-sm font-semibold text-rose">
-                    <Icon name="sparkle" className="h-4 w-4" />
+                  <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-rose-tint px-4 py-1.5 text-sm font-semibold text-rose-deep">
+                    <Icon name="check" className="h-3.5 w-3.5" />
                     {service.priceNote}
                   </p>
                 </div>

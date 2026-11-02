@@ -155,7 +155,7 @@ export default function AboutPage() {
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 80}>
               <div className="surface-card h-full p-7">
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-soft text-rose">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-rose/20 bg-rose-soft/80 text-rose-deep">
                   <Icon name={v.icon as IconName} className="h-6 w-6" />
                 </span>
                 <h3 className="mt-5 font-display text-lg font-semibold text-ink">

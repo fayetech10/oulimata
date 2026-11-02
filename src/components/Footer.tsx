@@ -111,7 +111,26 @@ export function Footer() {
           every feeding and parenting choice. You are welcome here.
         </p>
 
-        <div className="mt-8 flex flex-col gap-3 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+        {/* Legal links — A2P 10DLC compliance */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+          <Link
+            href="/privacy-policy"
+            className="text-ink-muted transition-colors hover:text-plum-deep underline-offset-4 hover:underline"
+          >
+            Privacy Policy
+          </Link>
+          <span className="text-ink-muted" aria-hidden="true">
+            |
+          </span>
+          <Link
+            href="/terms"
+            className="text-ink-muted transition-colors hover:text-plum-deep underline-offset-4 hover:underline"
+          >
+            Terms of Service
+          </Link>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </p>

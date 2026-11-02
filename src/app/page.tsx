@@ -107,7 +107,7 @@ export default function HomePage() {
         <Reveal className="surface-card grid gap-6 p-8 sm:grid-cols-3 sm:gap-8 sm:p-10">
           {credentials.map((c) => (
             <div key={c.title} className="flex items-start gap-4">
-              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-plum-soft text-plum-deep">
+              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-plum/10 bg-plum-soft/80 text-plum-deep">
                 <Icon name={c.icon as IconName} className="h-6 w-6" />
               </span>
               <div>
