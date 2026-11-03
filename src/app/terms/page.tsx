@@ -342,7 +342,7 @@ export default function TermsPage() {
               </h2>
               <address className="mt-4 space-y-2 not-italic leading-relaxed text-ink-soft">
                 <p>{site.legalName}</p>
-                <p>[BUSINESS MAILING ADDRESS]</p>
+                <p>11215 Georgia Ave #1327, Wheaton, MD 20902</p>
                 <p>
                   Email:{" "}
                   <a

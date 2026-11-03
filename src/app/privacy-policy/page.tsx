@@ -373,7 +373,7 @@ export default function PrivacyPolicyPage() {
               </h2>
               <div className="mt-4 space-y-2 leading-relaxed text-ink-soft">
                 <p>{site.legalName}</p>
-                <p>[BUSINESS MAILING ADDRESS]</p>
+                <p>11215 Georgia Ave #1327, Wheaton, MD 20902</p>
                 <p>
                   Email:{" "}
                   <a
