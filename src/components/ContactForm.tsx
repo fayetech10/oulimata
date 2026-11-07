@@ -111,7 +111,7 @@ export function ContactForm() {
       <div
         ref={successRef}
         tabIndex={-1}
-        className="flex flex-col items-center justify-center rounded-4xl border border-plum/30 bg-plum-tint/70 p-10 text-center focus:outline-none"
+        className="flex flex-col items-center justify-center rounded-2xl border border-plum/30 bg-plum-tint/70 p-10 text-center focus:outline-none"
       >
         <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-plum text-white">
           <Icon name="check" className="h-7 w-7" />
@@ -412,7 +412,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="group/btn mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-plum px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-200 touch-manipulation hover:-translate-y-0.5 hover:bg-plum-deep hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
+        className="group/btn mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-plum px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-200 touch-manipulation hover:-translate-y-0.5 hover:bg-plum-deep hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
       >
         {status === "submitting" ? (
           <>

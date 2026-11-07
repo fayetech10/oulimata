@@ -22,7 +22,7 @@ const config: Config = {
         ink: {
           DEFAULT: "#372339",
           soft: "#5D4A60",
-          muted: "#8F7E92",
+          muted: "#6E5D72",
         },
         // Deep plum — the brand's signature purple
         plum: {
@@ -48,7 +48,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         "4xl": "2rem",

@@ -281,7 +281,7 @@ export default function HomePage() {
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/contact"
-                className="group/btn inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-base font-semibold tracking-tight text-plum-deep shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift"
+                className="group/btn inline-flex items-center justify-center gap-2 rounded-xl bg-white px-7 py-3.5 text-base font-semibold tracking-tight text-plum-deep shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift"
               >
                 Book a free consultation
                 <Icon
@@ -291,7 +291,7 @@ export default function HomePage() {
               </Link>
               <a
                 href={`mailto:${site.email}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
               >
                 <Icon name="mail" className="h-4 w-4" />
                 {site.email}

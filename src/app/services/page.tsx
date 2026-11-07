@@ -142,7 +142,7 @@ export default function ServicesPage() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-plum-deep shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-plum-deep shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift"
               >
                 Ask about packages
                 <Icon name="arrow-right" className="h-4 w-4" />

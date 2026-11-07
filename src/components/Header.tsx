@@ -54,7 +54,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`rounded-xl px-4 py-2 text-sm font-semibold transition-colors ${
                   active
                     ? "bg-plum-soft text-plum-deep"
                     : "text-ink-soft hover:bg-plum-tint hover:text-plum-deep"
@@ -75,7 +75,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink transition-colors hover:bg-plum-tint md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-plum-tint md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-menu"
