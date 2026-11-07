@@ -3,7 +3,6 @@ import { Fraunces, Nunito } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { SocialFloat } from "@/components/SocialFloat";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import { getBaseUrl, localBusinessSchema, websiteSchema } from "@/lib/seo";
@@ -115,7 +114,6 @@ export default function RootLayout({
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <SocialFloat />
       </body>
     </html>
   );

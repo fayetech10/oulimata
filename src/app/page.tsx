@@ -77,49 +77,38 @@ export default function HomePage() {
                 alt="A caregiver gently soothing a sleeping newborn"
                 priority
                 quality={90}
-                className="aspect-[13/14] w-full rounded-4xl shadow-lift"
+                className="aspect-[13/14] w-full rounded-3xl shadow-soft"
               />
             ) : (
-              <HeroArt className="h-auto w-full drop-shadow-[0_30px_60px_rgba(55,35,61,0.16)]" />
+              <HeroArt className="h-auto w-full drop-shadow-[0_20px_40px_rgba(55,35,61,0.1)]" />
             )}
-            {/* floating testimonial badge */}
-            <div className="absolute -bottom-4 -left-2 flex items-center gap-3 rounded-2xl border border-line bg-surface/95 px-4 py-3 shadow-lift backdrop-blur sm:-left-6 md:animate-float">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-plum-soft text-plum">
-                <Icon name="moon" className="h-5 w-5" />
-              </span>
-              <div className="pr-1">
-                <div className="flex text-gold">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Icon key={i} name="star" className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="mt-0.5 text-xs font-semibold text-ink">
-                  Loved by first-time parents
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* ── Credentials strip ────────────────────────────────── */}
-      <section className="container pb-4">
-        <Reveal className="surface-card grid gap-6 p-8 sm:grid-cols-3 sm:gap-8 sm:p-10">
-          {credentials.map((c) => (
-            <div key={c.title} className="flex items-start gap-4">
-              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-plum/10 bg-plum-soft/80 text-plum-deep">
-                <Icon name={c.icon as IconName} className="h-6 w-6" />
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-semibold text-ink">
-                  {c.title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-                  {c.text}
-                </p>
-              </div>
+      <section className="container pt-4 pb-8">
+        <Reveal>
+          <div className="border-y border-line/80 py-8 sm:py-10">
+            <div className="grid gap-8 sm:grid-cols-3 sm:gap-10">
+              {credentials.map((c) => (
+                <div
+                  key={c.title}
+                  className="flex flex-col items-start sm:border-l sm:border-line/60 sm:pl-8 first:sm:border-l-0 first:sm:pl-0"
+                >
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-plum-tint text-plum-deep">
+                    <Icon name={c.icon as IconName} className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-ink">
+                    {c.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                    {c.text}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </Reveal>
       </section>
 
@@ -151,10 +140,10 @@ export default function HomePage() {
             description="A small, focused set of services covering the moments that matter most in those first weeks at home."
           />
         </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => (
-            <Reveal key={service.slug} delay={i * 90}>
-              <ServiceCard service={service} />
+            <Reveal key={service.slug} delay={i * 80}>
+              <ServiceCard service={service} index={i} />
             </Reveal>
           ))}
         </div>
@@ -163,33 +152,23 @@ export default function HomePage() {
       {/* ── Our motto ────────────────────────────────────────── */}
       <section className="container py-8">
         <Reveal>
-          <figure className="relative overflow-hidden rounded-4xl bg-plum px-8 py-14 text-center shadow-lift sm:px-16">
-            <div
-              className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-plum-deep/50 md:animate-float-slow motion-reduce:animate-none"
-              aria-hidden="true"
-            />
-            <div
-              className="pointer-events-none absolute -bottom-20 -right-14 h-64 w-64 rounded-full bg-plum-deep/40 md:animate-float motion-reduce:animate-none"
-              aria-hidden="true"
-            />
-            <div className="relative">
-              <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-gold animate-pulse-soft motion-reduce:animate-none">
-                <Icon name="quote" className="h-6 w-6" />
-              </span>
-              <blockquote className="mx-auto mt-6 max-w-3xl font-display text-2xl font-semibold italic leading-snug text-white sm:text-3xl">
-                &ldquo;{site.motto}&rdquo;
-              </blockquote>
-              <figcaption className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-gold">
-                {site.name} · {site.tagline}
-              </figcaption>
-            </div>
+          <figure className="relative overflow-hidden rounded-3xl bg-plum px-8 py-16 text-center shadow-soft sm:px-16">
+            <span className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-gold">
+              <Icon name="quote" className="h-5 w-5" />
+            </span>
+            <blockquote className="mx-auto mt-6 max-w-3xl font-display text-2xl font-semibold italic leading-snug text-white sm:text-3xl">
+              &ldquo;{site.motto}&rdquo;
+            </blockquote>
+            <figcaption className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-gold-soft">
+              {site.name} · {site.tagline}
+            </figcaption>
           </figure>
         </Reveal>
       </section>
 
       {/* ── Founder / About teaser ───────────────────────────── */}
       <section className="container py-8">
-        <div className="group surface-card overflow-hidden lg:grid lg:grid-cols-2">
+        <div className="group overflow-hidden rounded-3xl border border-line/80 bg-surface shadow-soft lg:grid lg:grid-cols-2">
           <div className="relative min-h-[420px] sm:min-h-[480px] lg:min-h-[320px]">
             {site.images.founder ? (
               <PhotoSlot
@@ -239,19 +218,19 @@ export default function HomePage() {
         </Reveal>
         <div className="relative mt-14 grid gap-8 md:grid-cols-3">
           <div
-            className="absolute left-[16%] right-[16%] top-8 hidden h-px bg-line md:block"
+            className="absolute left-[16%] right-[16%] top-6 hidden h-px bg-line/80 md:block"
             aria-hidden="true"
           />
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 100}>
               <div className="relative flex flex-col items-center text-center">
-                <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full border border-line bg-surface font-display text-xl font-semibold text-plum-deep shadow-soft">
+                <span className="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-line/80 bg-surface font-display text-base font-semibold text-plum-deep shadow-soft">
                   {step.number}
                 </span>
-                <h3 className="mt-6 font-display text-xl font-semibold text-ink">
+                <h3 className="mt-5 font-display text-xl font-semibold text-ink">
                   {step.title}
                 </h3>
-                <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-ink-soft">
+                <p className="mt-2.5 max-w-xs text-[15px] leading-relaxed text-ink-soft">
                   {step.text}
                 </p>
               </div>
@@ -261,7 +240,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ─────────────────────────────────────── */}
-      <section className="container py-8">
+      <section className="container py-12">
         <Reveal>
           <SectionHeading
             eyebrow="Kind words"
@@ -271,14 +250,16 @@ export default function HomePage() {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 90}>
-              <figure className="surface-card flex h-full flex-col p-7">
-                <Icon name="quote" className="h-8 w-8 text-rose" />
-                <blockquote className="mt-4 flex-1 font-display text-lg italic leading-relaxed text-ink">
-                  “{t.quote}”
+              <figure className="flex h-full flex-col rounded-3xl border border-line/80 bg-surface p-7 shadow-soft transition-all duration-300 hover:border-plum/20">
+                <span className="font-display text-4xl leading-none text-gold/80" aria-hidden="true">
+                  &ldquo;
+                </span>
+                <blockquote className="mt-2 flex-1 font-display text-lg italic leading-relaxed text-ink">
+                  {t.quote}
                 </blockquote>
-                <figcaption className="mt-6 border-t border-line pt-5">
+                <figcaption className="mt-6 border-t border-line/70 pt-4">
                   <div className="font-semibold text-ink">{t.name}</div>
-                  <div className="text-sm text-ink-muted">{t.detail}</div>
+                  <div className="text-xs text-ink-muted">{t.detail}</div>
                 </figcaption>
               </figure>
             </Reveal>
@@ -287,16 +268,8 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA band ─────────────────────────────────────────── */}
-      <section className="container py-20 sm:py-28">
-        <Reveal className="relative overflow-hidden rounded-4xl bg-plum px-8 py-14 text-center shadow-lift sm:px-16 sm:py-20">
-          <div
-            className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-plum-deep/40"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -bottom-20 -left-10 h-64 w-64 rounded-full bg-white/10"
-            aria-hidden="true"
-          />
+      <section className="container py-16 sm:py-24">
+        <Reveal className="relative overflow-hidden rounded-3xl bg-plum px-8 py-14 text-center shadow-soft sm:px-16 sm:py-20">
           <div className="relative">
             <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
               Ready to rest easy? Let&apos;s talk.

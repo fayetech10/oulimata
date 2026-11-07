@@ -63,7 +63,10 @@ export default function ContactPage() {
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           {/* Details */}
           <div>
-            <h2 className="font-display text-2xl font-semibold text-ink">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-gold-deep">
+              Direct Contact
+            </div>
+            <h2 className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
               Get in touch
             </h2>
             <p className="mt-3 leading-relaxed text-ink-soft">
@@ -72,15 +75,15 @@ export default function ContactPage() {
               replying.
             </p>
 
-            <ul className="mt-8 space-y-4">
+            <div className="mt-8 overflow-hidden rounded-2xl border border-line/70 bg-surface/90 shadow-[0_4px_24px_rgba(55,35,61,0.04)] divide-y divide-line/60">
               {details.map((d) => {
                 const inner = (
-                  <div className="flex items-start gap-4">
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-plum-soft text-plum-deep">
+                  <div className="flex items-start gap-4 p-5 transition-colors hover:bg-cream/40">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-plum-tint text-plum-deep">
                       <Icon name={d.icon} className="h-5 w-5" />
                     </span>
                     <div>
-                      <div className="text-xs font-bold uppercase tracking-[0.14em] text-ink-muted">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep">
                         {d.label}
                       </div>
                       <div className="mt-1 font-semibold leading-snug text-ink">
@@ -89,22 +92,15 @@ export default function ContactPage() {
                     </div>
                   </div>
                 );
-                return (
-                  <li
-                    key={d.label}
-                    className="surface-card p-5 transition-colors hover:border-plum/40"
-                  >
-                    {d.href ? (
-                      <a href={d.href} className="block">
-                        {inner}
-                      </a>
-                    ) : (
-                      inner
-                    )}
-                  </li>
+                return d.href ? (
+                  <a key={d.label} href={d.href} className="block transition-colors">
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={d.label}>{inner}</div>
                 );
               })}
-            </ul>
+            </div>
 
             <div className="mt-8">
               <SocialLinks />

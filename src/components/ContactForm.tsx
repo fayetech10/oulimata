@@ -8,7 +8,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
 
 const fieldClass =
-  "w-full rounded-2xl border border-line bg-cream/60 px-4 py-3 text-ink placeholder:text-ink-muted transition-colors focus:border-plum focus:bg-surface focus:outline-none focus:ring-2 focus:ring-plum/30 aria-[invalid=true]:border-rose aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-rose/30";
+  "w-full rounded-xl border border-line/80 bg-cream/40 px-4 py-3 text-ink placeholder:text-ink-muted transition-colors focus:border-plum focus:bg-surface focus:outline-none focus:ring-2 focus:ring-plum/20 aria-[invalid=true]:border-rose aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-rose/30";
 const labelClass = "mb-1.5 block text-sm font-semibold text-ink";
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -138,7 +138,7 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       onBlurCapture={(e) => revalidate(e.currentTarget)}
-      className="surface-card relative p-7 sm:p-9"
+      className="relative rounded-2xl border border-line/70 bg-surface/95 p-7 sm:p-10 shadow-[0_4px_28px_rgba(55,35,61,0.04)]"
       noValidate
     >
       {/* Honeypot — invisible to humans, tempting to bots. */}

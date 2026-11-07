@@ -56,7 +56,7 @@
   }
 
   .surface-card {
-    @apply rounded-4xl border border-line bg-surface shadow-soft;
+    @apply rounded-3xl border border-line/80 bg-surface shadow-soft;
   }
 }
 

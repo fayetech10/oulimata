@@ -42,67 +42,86 @@ export default function ServicesPage() {
 
       {/* Detailed services */}
       <section className="container py-16 sm:py-20">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-10">
           {services.map((service, i) => (
             <Reveal key={service.slug}>
               <article
                 id={service.slug}
-                className="surface-card grid gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:items-center"
+                className="group relative grid gap-8 overflow-hidden rounded-3xl border border-line/70 bg-surface/90 p-6 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:items-center shadow-[0_4px_28px_rgba(55,35,61,0.04)] backdrop-blur-sm transition-all duration-300 hover:border-plum/25 hover:shadow-[0_12px_36px_rgba(55,35,61,0.06)]"
               >
-                {/* Mobile/tablet: big edge-to-edge photo at the top of the card */}
+                {/* Mobile/tablet: photo framed cleanly */}
                 {service.image && (
-                  <PhotoSlot
-                    src={service.image}
-                    alt={service.imageAlt ?? service.title}
-                    className="-mx-6 -mt-6 -mb-2 aspect-[4/3] w-[calc(100%+3rem)] max-w-none rounded-b-none rounded-t-4xl sm:-mx-10 sm:-mt-10 sm:aspect-[3/2] sm:w-[calc(100%+5rem)] lg:hidden"
-                    sizes="100vw"
-                  />
-                )}
-                <div className={i % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-plum/10 bg-plum-soft/80 text-plum-deep shadow-soft">
-                    <Icon name={service.icon as IconName} className="h-7 w-7" />
-                  </span>
-                  <h2 className="mt-5 font-display text-2xl font-semibold text-ink sm:text-3xl">
-                    {service.title}
-                  </h2>
-                  <p className="mt-4 text-lg leading-relaxed text-ink-soft">
-                    {service.description}
-                  </p>
-                  <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-rose-tint px-4 py-1.5 text-sm font-semibold text-rose-deep">
-                    <Icon name="check" className="h-3.5 w-3.5" />
-                    {service.priceNote}
-                  </p>
-                </div>
-
-                <div
-                  className={`rounded-4xl bg-plum-tint/70 p-5 sm:p-7 ${
-                    i % 2 === 1 ? "lg:order-1" : "lg:order-2"
-                  }`}
-                >
-                  {/* Desktop: photo lives inside the "what's included" box */}
-                  {service.image && (
+                  <div className="overflow-hidden rounded-2xl bg-plum-tint/30 lg:hidden">
                     <PhotoSlot
                       src={service.image}
                       alt={service.imageAlt ?? service.title}
-                      className="mb-7 hidden aspect-[16/9] w-full rounded-3xl lg:block"
-                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="aspect-[16/10] w-full object-cover"
+                      sizes="100vw"
                     />
+                  </div>
+                )}
+                <div className={i % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
+                  <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-gold-deep">
+                    <span>Care N° {String(i + 1).padStart(2, "0")}</span>
+                    <span className="h-1 w-1 rounded-full bg-gold/60" />
+                    <span>Boutique Care</span>
+                  </div>
+
+                  <h2 className="mt-3 font-display text-2xl font-semibold leading-tight text-ink sm:text-3xl">
+                    {service.title}
+                  </h2>
+                  <p className="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
+                    {service.description}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-line/80 bg-cream/70 px-4 py-1.5 text-xs font-medium text-ink-soft">
+                      <span className="h-1.5 w-1.5 rounded-full bg-gold-deep" />
+                      {service.priceNote}
+                    </span>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-plum-deep transition-colors hover:text-plum"
+                    >
+                      Book this care
+                      <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div
+                  className={`flex flex-col gap-6 rounded-2xl border border-line/60 bg-cream/50 p-6 sm:p-8 ${
+                    i % 2 === 1 ? "lg:order-1" : "lg:order-2"
+                  }`}
+                >
+                  {/* Desktop: photo framed with art-print aesthetic */}
+                  {service.image && (
+                    <div className="hidden overflow-hidden rounded-xl bg-plum-tint/30 lg:block">
+                      <PhotoSlot
+                        src={service.image}
+                        alt={service.imageAlt ?? service.title}
+                        className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                      />
+                    </div>
                   )}
-                  <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-plum-deep">
-                    What&apos;s included
-                  </h3>
-                  <ul className="mt-5 space-y-3.5">
-                    {service.includes.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-plum text-white">
-                          <Icon name="check" className="h-3.5 w-3.5" />
-                        </span>
-                        <span className="leading-relaxed text-ink-soft">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-plum-deep">
+                      What&apos;s included
+                    </h3>
+                    <ul className="mt-4 space-y-3">
+                      {service.includes.map((item) => (
+                        <li key={item} className="flex items-start gap-3 text-sm">
+                          <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center text-plum-deep">
+                            <Icon name="check" className="h-3.5 w-3.5 stroke-[2.5]" />
+                          </span>
+                          <span className="leading-relaxed text-ink-soft">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -110,12 +129,8 @@ export default function ServicesPage() {
         </div>
 
         {/* Maternity Care Packages */}
-        <Reveal className="mt-10">
-          <div className="relative overflow-hidden rounded-4xl bg-plum px-8 py-10 shadow-lift sm:px-12">
-            <div
-              className="pointer-events-none absolute -right-14 -top-14 h-52 w-52 rounded-full bg-plum-deep/50"
-              aria-hidden="true"
-            />
+        <Reveal className="mt-12">
+          <div className="relative overflow-hidden rounded-3xl bg-plum px-8 py-10 shadow-soft sm:px-12">
             <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-5">
                 <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gold">
@@ -138,23 +153,25 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="container py-12 sm:py-16">
+      <section className="container py-16 sm:py-20">
         <Reveal>
           <SectionHeading
+            align="center"
             eyebrow="Good to know"
             title="Frequently asked questions"
+            className="mx-auto"
           />
         </Reveal>
-        <div className="mx-auto mt-10 max-w-3xl divide-y divide-line overflow-hidden rounded-4xl border border-line bg-surface">
+        <div className="mx-auto mt-12 max-w-3xl divide-y divide-line/70 overflow-hidden rounded-2xl border border-line/70 bg-surface/90 shadow-[0_4px_24px_rgba(55,35,61,0.04)]">
           {faqs.map((faq) => (
             <details key={faq.q} className="group px-6 sm:px-8">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold text-ink marker:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold text-ink marker:hidden transition-colors group-hover:text-plum-deep">
                 {faq.q}
-                <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-plum-soft text-plum-deep transition-transform duration-300 group-open:rotate-45">
-                  <Icon name="close" className="h-4 w-4 rotate-45" />
+                <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-plum-tint text-plum-deep transition-transform duration-300 group-open:rotate-45">
+                  <Icon name="close" className="h-3.5 w-3.5 rotate-45" />
                 </span>
               </summary>
-              <p className="pb-5 pr-12 leading-relaxed text-ink-soft">
+              <p className="pb-5 pr-12 text-[15px] leading-relaxed text-ink-soft">
                 {faq.a}
               </p>
             </details>
@@ -164,15 +181,15 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section className="container py-16">
-        <Reveal className="surface-card flex flex-col items-center gap-6 p-10 text-center sm:p-14">
-          <h2 className="max-w-xl font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+        <Reveal className="relative overflow-hidden rounded-3xl border border-line/70 bg-surface/90 p-10 text-center sm:p-14 shadow-[0_8px_32px_rgba(55,35,61,0.04)]">
+          <h2 className="mx-auto max-w-xl font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Not sure which service fits? Let&apos;s figure it out together.
           </h2>
-          <p className="max-w-lg text-lg leading-relaxed text-ink-soft">
+          <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
             Every family is different. Book a free consultation and we&apos;ll
             recommend the right support — no pressure, no obligation.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/contact" size="lg" withArrow>
               Book a free consultation
             </Button>
