@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import { LogoImage } from "./Logo";
 import { Icon } from "./Icons";
 import { SocialLinks } from "./SocialLinks";
@@ -7,7 +8,18 @@ import { nav, services, site } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-line bg-plum-tint/60">
+      {/* Review Widget Script */}
+      <Script
+        src="https://cdn.apigateway.co/review-widget-client..prod/sdk.js"
+        strategy="lazyOnload"
+      />
+
       <div className="container py-16">
+        {/* Customer Reviews Widget */}
+        <div className="mb-14 border-b border-line pb-12">
+          <review-widget widget-id="widget-17d4bb61-45ac-44fa-9879-5d4d8cef08db"></review-widget>
+        </div>
+
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div>
